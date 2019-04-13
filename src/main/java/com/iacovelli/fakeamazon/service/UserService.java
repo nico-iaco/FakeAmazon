@@ -1,7 +1,6 @@
 package com.iacovelli.fakeamazon.service;
 
 import com.iacovelli.fakeamazon.exception.UserAlreadyRegisteredException;
-import com.iacovelli.fakeamazon.exception.UserNotFoundException;
 import com.iacovelli.fakeamazon.model.User;
 import com.iacovelli.fakeamazon.repo.UserRepo;
 import org.mindrot.jbcrypt.BCrypt;
@@ -30,8 +29,8 @@ public class UserService {
 	}
 
 	public boolean login(String email, String password) {
-		User u = repo.findUserByEmail(email).orElseThrow(() -> new UserNotFoundException("Utente non trovato"));
-		return BCrypt.checkpw(password, u.getPassword());
+		User u = repo.findUserByEmail(email).orElse(null);
+		return u != null && BCrypt.checkpw(password, u.getPassword());
 	}
 
 

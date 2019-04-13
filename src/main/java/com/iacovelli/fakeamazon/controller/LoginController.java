@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class LoginController {
 
@@ -22,8 +24,13 @@ public class LoginController {
 	}
 
 	@PostMapping("/login")
-	public String tryLogin(@ModelAttribute UserForm form) {
-		return service.login(form.getUsername(), form.getPassword()) ? "search" : "login" ;
+	public String tryLogin(@ModelAttribute UserForm form, HttpServletRequest request) {
+		if (service.login(form.getUsername(), form.getPassword())) {
+			request.getSession().setAttribute("userId", form.getUsername());
+			return "search";
+		}
+		request.setAttribute("exception", "Login incorretto");
+		return "login";
 	}
 
 }

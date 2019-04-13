@@ -21,5 +21,11 @@
             </tr>
         </table>
     </form:form>
+    <script>
+        const msg = '<%=request.getAttribute("exception")%>';
+        if (msg !== "null") {
+            alert(msg);
+        }
+    </script>
 </body>
 </html>

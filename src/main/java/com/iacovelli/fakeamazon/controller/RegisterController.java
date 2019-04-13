@@ -1,5 +1,6 @@
 package com.iacovelli.fakeamazon.controller;
 
+import com.iacovelli.fakeamazon.exception.UserAlreadyRegisteredException;
 import com.iacovelli.fakeamazon.model.form.UserForm;
 import com.iacovelli.fakeamazon.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -25,12 +27,18 @@ public class RegisterController {
 	}
 
 	@PostMapping("/register")
-	public String register(@Valid @ModelAttribute UserForm form, BindingResult bindingResult) {
+	public String register(@Valid @ModelAttribute UserForm form, BindingResult bindingResult, HttpServletRequest request) {
 		if (bindingResult.hasFieldErrors()) {
 			return "register";
 		}
 		//TODO: In caso di mancata registrazione far apparire degli errori
-		return service.register(form.getUsername(), form.getPassword()) ? "index" : "register";
+		try {
+			service.register(form.getUsername(), form.getPassword());
+			return "index";
+		} catch (UserAlreadyRegisteredException ex) {
+			request.setAttribute("exception", ex.getMessage());
+			return "register";
+		}
 	}
 
 }
