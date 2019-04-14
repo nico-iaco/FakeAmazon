@@ -3,12 +3,13 @@
 <head>
     <title>Ricerca</title>
 </head>
-<body>
+<body onload="showAll()">
     <div>
         <input id="search" type="text" name="searchText"/>
         <input type="button" value="Cerca per codice" onclick="searchCodice()"/>
         <input type="button" value="Cerca per categoria" onclick="searchCategoria()"/>
         <input type="button" value="Cerca per descrizione" onclick="searchDescrizione()"/>
+        <input type="button" value="Reset filtri" onclick="showAll()"/>
     </div>
     <br/>
     <div id="result">
@@ -18,6 +19,10 @@
     <a href="/cart"><button>Vai al carrello</button></a>
     <script>
         const baseUrl = "/api/product";
+
+        function showAll() {
+            executeFetch(baseUrl);
+        }
 
         function searchCodice() {
             const element = document.getElementById("search");

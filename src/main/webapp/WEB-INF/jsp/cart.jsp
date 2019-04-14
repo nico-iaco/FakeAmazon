@@ -10,8 +10,9 @@
 </div>
 <br/>
 <div>
-    <button>Vai al pagamento</button>
+    <button onclick="pay()">Vai al pagamento</button>
     <button onclick="deleteAllProducts()">Svuota il carrello</button>
+    <a href="/search"><button>Torna indietro</button></a>
 </div>
 <script>
 
@@ -94,6 +95,10 @@
                 })
             .catch(err => console.log(err));
 
+    }
+
+    function pay() {
+        alert("Someone has been truffato")
     }
 
     function createNode(element) {

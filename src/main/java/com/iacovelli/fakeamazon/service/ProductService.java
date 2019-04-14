@@ -27,6 +27,10 @@ public class ProductService {
 		return repo.findProductsByCategoriaContains(category);
 	}
 
+	public List<Product> getAllProducts() {
+		return repo.findAll();
+	}
+
 	public boolean saveProduct(ProductForm p) {
 		try {
 			Product product = new Product()

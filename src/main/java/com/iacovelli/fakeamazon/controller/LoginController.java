@@ -28,7 +28,7 @@ public class LoginController {
 		if (service.login(form.getUsername(), form.getPassword())) {
 			Long cartId = service.generateCartIfEmpty(form.getUsername(), form.getPassword());
 			request.getSession().setAttribute("cartId", cartId);
-			return "search";
+			return "redirect:/search";
 		}
 		request.setAttribute("exception", "Login incorretto");
 		return "login";

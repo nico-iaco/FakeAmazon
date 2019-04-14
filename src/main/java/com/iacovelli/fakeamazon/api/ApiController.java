@@ -44,6 +44,11 @@ public class ApiController {
 		return productService.getProductsFromCategoria(cat);
 	}
 
+	@GetMapping("/product")
+	public List<Product> getAllProducts() {
+		return productService.getAllProducts();
+	}
+
 	@GetMapping("/cart/add/{cartId}/{productId}")
 	public boolean addProductToCart(@PathVariable("cartId") Long cartId, @PathVariable("productId") Long productId) {
 		Product p = productService.getProductById(productId);
