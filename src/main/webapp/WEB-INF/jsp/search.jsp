@@ -10,9 +10,12 @@
         <input type="button" value="Cerca per categoria" onclick="searchCategoria()"/>
         <input type="button" value="Cerca per descrizione" onclick="searchDescrizione()"/>
     </div>
+    <br/>
     <div id="result">
 
     </div>
+    <br/>
+    <a href="/cart"><button>Vai al carrello</button></a>
     <script>
         const baseUrl = "/api/product";
 
@@ -71,11 +74,13 @@
             const sottocategoriaTd = createNode("td");
             sottocategoriaTd.textContent = "Sottocategoria";
             append(tr, sottocategoriaTd);
+            const acquistaTd = createNode("td");
+            acquistaTd.textContent = "Acquista";
+            append(tr, acquistaTd);
             return tr;
         }
 
         function generateRow(rowJson) {
-            //TODO: Generare i td tramite le colonne del'oggetto json passato
             const tr = createNode("tr");
             const idTd = createNode("td");
             idTd.textContent = rowJson.id;
@@ -92,7 +97,21 @@
             const sottocategoriaTd = createNode("td");
             sottocategoriaTd.textContent = rowJson.sottocategoria;
             append(tr, sottocategoriaTd);
+            const acquistaTd = createNode("td");
+            const acquistaBtn = createNode("button");
+            acquistaBtn.textContent = "Acquista";
+            acquistaBtn.onclick = () => buyProduct(rowJson.id);
+            append(acquistaTd, acquistaBtn);
+            append(tr, acquistaTd);
             return tr;
+        }
+
+        function buyProduct(idProduct) {
+            const cartId = '<%=session.getAttribute("cartId")%>';
+            const url = "/api/cart/add/"+cartId+"/"+idProduct;
+            fetch(url)
+                .then(result => {console.log(result)})
+                .catch(err => console.log(err));
         }
 
         function createNode(element) {

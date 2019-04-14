@@ -1,6 +1,8 @@
 package com.iacovelli.fakeamazon.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Cart")
@@ -9,11 +11,12 @@ public class Cart extends BaseEntity<Long> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id private Long id;
 
-	@ManyToOne
+	@OneToOne(mappedBy = "cart")
 	private User user;
 
-	@ManyToOne
-	private Product product;
+	@ManyToMany(targetEntity = Product.class)
+	@JoinColumn(name = "id", table = "Prodotti")
+	private Set<Product> products = new HashSet<>();
 
 	@Override
 	public Long getId() {
@@ -35,13 +38,16 @@ public class Cart extends BaseEntity<Long> {
 		return this;
 	}
 
-	public Product getProduct() {
-		return product;
+	public Set<Product> getProducts() {
+		return products;
 	}
 
-	public Cart setProduct(Product product) {
-		this.product = product;
-		return this;
+	public void addProduct(Product p) {
+		products.add(p);
+	}
+
+	public void emptyCart() {
+		this.products = new HashSet<>();
 	}
 
 	@Override

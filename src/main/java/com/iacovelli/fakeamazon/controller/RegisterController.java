@@ -31,7 +31,6 @@ public class RegisterController {
 		if (bindingResult.hasFieldErrors()) {
 			return "register";
 		}
-		//TODO: In caso di mancata registrazione far apparire degli errori
 		try {
 			service.register(form.getUsername(), form.getPassword());
 			return "index";

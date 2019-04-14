@@ -26,7 +26,8 @@ public class LoginController {
 	@PostMapping("/login")
 	public String tryLogin(@ModelAttribute UserForm form, HttpServletRequest request) {
 		if (service.login(form.getUsername(), form.getPassword())) {
-			request.getSession().setAttribute("userId", form.getUsername());
+			Long cartId = service.generateCartIfEmpty(form.getUsername(), form.getPassword());
+			request.getSession().setAttribute("cartId", cartId);
 			return "search";
 		}
 		request.setAttribute("exception", "Login incorretto");

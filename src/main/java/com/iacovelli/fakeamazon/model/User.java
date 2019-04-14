@@ -1,10 +1,7 @@
 package com.iacovelli.fakeamazon.model;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -19,6 +16,10 @@ public class User extends BaseEntity<String> {
 
 	@Column(name = "password")
 	private String password;
+
+	@OneToOne
+	@JoinColumn(name = "id", referencedColumnName = "id")
+	private Cart cart;
 
 	@Override
 	public String getId() {
@@ -37,6 +38,15 @@ public class User extends BaseEntity<String> {
 
 	public User setPassword(String password) {
 		this.password = password;
+		return this;
+	}
+
+	public Cart getCart() {
+		return cart;
+	}
+
+	public User setCart(Cart cart) {
+		this.cart = cart;
 		return this;
 	}
 
