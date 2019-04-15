@@ -1,5 +1,5 @@
-<%@ page import="java.util.List" %>
 <%@ page import="com.iacovelli.fakeamazon.model.form.Category" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
@@ -13,10 +13,6 @@
     <%--@elvariable id="productForm" type="com.iacovelli.fakeamazon.model.form.ProductForm"--%>
     <form:form method="post" action="/products" modelAttribute="productForm">
         <table>
-            <tr>
-                <td><form:label path="id">Id prodotto:</form:label></td>
-                <td><form:input path="id" type="number" /></td>
-            </tr>
             <tr>
                 <td><form:label path="title">Titolo prodotto:</form:label></td>
                 <td><form:input path="title" type="text" /></td>

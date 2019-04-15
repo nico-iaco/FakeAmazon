@@ -7,8 +7,8 @@ import com.iacovelli.fakeamazon.model.User;
 import com.iacovelli.fakeamazon.repo.CartRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.Set;
 
 @Service
@@ -26,13 +26,14 @@ public class CartService {
 		return cartRepo.save(cart);
 	}
 
+	@Transactional
 	public void addProdottoToCart(Long id, Product p) {
 		Cart c = getCartFromId(id);
 		c.addProduct(p);
 		cartRepo.save(c);
 	}
 
-	@Transactional(Transactional.TxType.REQUIRES_NEW)
+
 	public Set<Product> getProductsFromCart(Long id) {
 		return getCartFromId(id).getProducts();
 	}
