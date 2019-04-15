@@ -1,5 +1,8 @@
 package com.iacovelli.fakeamazon.model.form;
 
+/**
+ * This is the model for the product form
+ */
 public class ProductForm {
 
 	private Long id;

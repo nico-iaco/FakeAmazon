@@ -3,6 +3,11 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
+    /**
+     * Il suppress warnings è presente perchè sappiamo con certezza che il risultato
+     * della get dell'attributo sarà di tipo List<Category>
+     */
+    @SuppressWarnings("unchecked")
     List<Category> categories = (List<Category>) request.getAttribute("categories");
 %>
 <html lang="it">

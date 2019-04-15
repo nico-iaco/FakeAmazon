@@ -11,6 +11,11 @@ import javax.persistence.Version;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+
+/**
+ * This is the base class for Entity class. Here there are logging field
+ * @param <ID>
+ */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity<ID> implements Identity<ID> {

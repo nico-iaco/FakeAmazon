@@ -17,12 +17,24 @@ public class LoginController {
 	@Autowired
 	private UserService service;
 
+	/**
+	 * This method shows the login page
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/login")
 	public String showForm(Model model) {
 		model.addAttribute("userForm", new UserForm());
 		return "login";
 	}
 
+	/**
+	 * This method processes the login and if the login is successful will
+	 * redirect to search page otherwise will show error inside the form
+	 * @param form
+	 * @param request
+	 * @return
+	 */
 	@PostMapping("/login")
 	public String tryLogin(@ModelAttribute UserForm form, HttpServletRequest request) {
 		if (service.login(form.getUsername(), form.getPassword())) {

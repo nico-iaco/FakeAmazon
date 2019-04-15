@@ -2,19 +2,31 @@ package com.iacovelli.fakeamazon.repo;
 
 import com.iacovelli.fakeamazon.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepo extends JpaRepository<Product, Long> {
 
+	/**
+	 * This method will return a product identified by @param id
+	 * @param id
+	 * @return
+	 */
 	Optional<Product> getProductById(Long id);
 
+	/**
+	 * This method will return a list of products which contains @param descrizione
+	 * @param descrizione
+	 * @return
+	 */
 	List<Product> getProductsByDescrizioneContains(String descrizione);
 
-	//@Query("SELECT p FROM Product  as p WHERE p.categoria LIKE %:c%")
+	/**
+	 * This method will return a list of products of @param c category
+	 * @param c
+	 * @return
+	 */
 	List<Product> findProductsByCategoriaContains(String c);
 
 }

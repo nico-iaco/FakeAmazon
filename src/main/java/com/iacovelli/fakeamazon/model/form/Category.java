@@ -3,6 +3,9 @@ package com.iacovelli.fakeamazon.model.form;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is the enum with the categories and them subcategories
+ */
 public enum Category {
 
 	ABBIGLIAMENTO {

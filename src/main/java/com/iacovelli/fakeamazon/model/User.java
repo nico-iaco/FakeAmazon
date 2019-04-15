@@ -5,6 +5,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+/**
+ * This is the class for User entity represented into Db by Utente table
+ */
 @Entity
 @Table(name = "Utente")
 public class User extends BaseEntity<String> {

@@ -4,6 +4,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+/**
+ * This is the class of user form model with its constraints
+ */
 public class UserForm {
 
 	@NotEmpty

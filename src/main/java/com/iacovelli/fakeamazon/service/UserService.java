@@ -18,7 +18,7 @@ public class UserService {
 	@Autowired
 	private CartService service;
 
-	public boolean register(String email, String password) {
+	public boolean register(String email, String password) throws UserAlreadyRegisteredException {
 		User u = new User()
 				.setId(email)
 				.setPassword(hashPassword(password));
@@ -36,7 +36,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public Long generateCartIfEmpty(String id, String pwd){
+	public Long generateCartIfEmpty(String id, String pwd) throws UserNotFoundException{
 		if (!login(id, pwd)) {
 			throw new UserNotFoundException("Credenziali non corrette");
 		}

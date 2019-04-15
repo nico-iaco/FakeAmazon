@@ -2,11 +2,12 @@ package com.iacovelli.fakeamazon.model;
 
 import javax.persistence.*;
 
+/**
+ * This is the class for Product entity represented into Db with table Prodotti
+ */
 @Entity
 @Table(name = "Prodotti")
 public class Product extends BaseEntity<Long> {
-
-
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id private Long id;

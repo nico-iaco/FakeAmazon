@@ -17,15 +17,31 @@ public class CartService {
 	@Autowired
 	private CartRepo cartRepo;
 
-	public Cart getCartFromId(Long id) {
+	/**
+	 * This method will return a cart identified by @param id
+	 * @param id
+	 * @return
+	 * @throws CartNotFoundException
+	 */
+	public Cart getCartFromId(Long id) throws CartNotFoundException {
 		return cartRepo.getCartById(id).orElseThrow(() -> new CartNotFoundException("Carrello non trovato"));
 	}
 
+	/**
+	 * This method will generate a cart for @param u
+	 * @param u
+	 * @return
+	 */
 	public Cart generateCart(User u) {
 		Cart cart = new Cart().setUser(u);
 		return cartRepo.save(cart);
 	}
 
+	/**
+	 * This method will add @param p into cart identified by @param id
+	 * @param id
+	 * @param p
+	 */
 	@Transactional
 	public void addProdottoToCart(Long id, Product p) {
 		Cart c = getCartFromId(id);
@@ -33,21 +49,38 @@ public class CartService {
 		cartRepo.save(c);
 	}
 
-
+	/**
+	 * This method will return all products from cart identified by @param id
+	 * @param id
+	 * @return
+	 */
 	public Set<Product> getProductsFromCart(Long id) {
 		return getCartFromId(id).getProducts();
 	}
 
+	/**
+	 * This method will delete @param c
+	 * @param c
+	 */
 	public void deleteCart(Cart c) {
 		cartRepo.delete(c);
 	}
 
+	/**
+	 * This method will delete @param p from cart identified by @param id
+	 * @param id
+	 * @param p
+	 */
 	public void deleteProductFromCart(Long id, Product p) {
 		Cart c = getCartFromId(id);
 		c.getProducts().remove(p);
 		cartRepo.save(c);
 	}
 
+	/**
+	 * This method will delete all products from cart identified by @param id
+	 * @param id
+	 */
 	public void emptyCart(Long id) {
 		Cart c = getCartFromId(id);
 		c.emptyCart();

@@ -4,6 +4,10 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
+/**
+ * This is the cart model represented by Cart table inside the Db
+ */
 @Entity
 @Table(name = "Cart")
 public class Cart extends BaseEntity<Long> {

@@ -20,12 +20,26 @@ public class RegisterController {
 	@Autowired
 	private UserService service;
 
+	/**
+	 * This method will show the register form
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/register")
 	public String showRegisterForm(Model model) {
 		model.addAttribute("userForm", new UserForm());
 		return "register";
 	}
 
+	/**
+	 * This method will process the registration request and if the form
+	 * is valid will save it into DB, otherwise return the registration page
+	 * with the errors
+	 * @param form
+	 * @param bindingResult
+	 * @param request
+	 * @return
+	 */
 	@PostMapping("/register")
 	public String register(@Valid @ModelAttribute UserForm form, BindingResult bindingResult, HttpServletRequest request) {
 		if (bindingResult.hasFieldErrors()) {
