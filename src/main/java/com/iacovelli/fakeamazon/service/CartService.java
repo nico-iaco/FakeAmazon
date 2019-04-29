@@ -1,6 +1,7 @@
 package com.iacovelli.fakeamazon.service;
 
 import com.iacovelli.fakeamazon.exception.CartNotFoundException;
+import com.iacovelli.fakeamazon.exception.UserNotFoundException;
 import com.iacovelli.fakeamazon.model.Cart;
 import com.iacovelli.fakeamazon.model.Product;
 import com.iacovelli.fakeamazon.model.User;
@@ -17,6 +18,9 @@ public class CartService {
 	@Autowired
 	private CartRepo cartRepo;
 
+	@Autowired
+	private UserService userService;
+
 	/**
 	 * This method will return a cart identified by @param id
 	 * @param id
@@ -27,6 +31,10 @@ public class CartService {
 		return cartRepo.getCartById(id).orElseThrow(() -> new CartNotFoundException("Carrello non trovato"));
 	}
 
+	public boolean userHasCart(User u) {
+		return cartRepo.getCartByUser(u).isPresent();
+	}
+
 	/**
 	 * This method will generate a cart for @param u
 	 * @param u
@@ -35,6 +43,16 @@ public class CartService {
 	public Cart generateCart(User u) {
 		Cart cart = new Cart().setUser(u);
 		return cartRepo.save(cart);
+	}
+
+	@Transactional
+	public Long generateCartIfEmpty(String user, String pwd) throws UserNotFoundException {
+		if (!userService.login(user, pwd)) {
+			throw new UserNotFoundException("Credenziali non corrette");
+		}
+		User u = userService.getUser(user, pwd);
+		Long id = userHasCart(u) ? cartRepo.getCartByUser(u).orElseThrow(() -> new UserNotFoundException("Utente non trovato")).getId() : generateCart(u).getId();
+		return id;
 	}
 
 	/**

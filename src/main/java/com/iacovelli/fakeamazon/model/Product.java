@@ -1,5 +1,7 @@
 package com.iacovelli.fakeamazon.model;
 
+import com.iacovelli.fakeamazon.model.form.Category;
+
 import javax.persistence.*;
 
 /**
@@ -18,8 +20,9 @@ public class Product extends BaseEntity<Long> {
 	@Column(name = "descrizione")
 	private String descrizione;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "categoria")
-	private String categoria;
+	private Category categoria;
 
 	@Column(name = "sottocategoria")
 	private String sottocategoria;
@@ -54,11 +57,11 @@ public class Product extends BaseEntity<Long> {
 		return this;
 	}
 
-	public String getCategoria() {
+	public Category getCategoria() {
 		return categoria;
 	}
 
-	public Product setCategoria(String categoria) {
+	public Product setCategoria(Category categoria) {
 		this.categoria = categoria;
 		return this;
 	}

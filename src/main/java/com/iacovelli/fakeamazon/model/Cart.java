@@ -15,7 +15,7 @@ public class Cart extends BaseEntity<Long> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id private Long id;
 
-	@OneToOne(mappedBy = "cart")
+	@OneToOne
 	private User user;
 
 	@ManyToMany(targetEntity = Product.class)

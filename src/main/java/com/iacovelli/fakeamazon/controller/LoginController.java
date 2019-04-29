@@ -1,6 +1,7 @@
 package com.iacovelli.fakeamazon.controller;
 
 import com.iacovelli.fakeamazon.model.form.UserForm;
+import com.iacovelli.fakeamazon.service.CartService;
 import com.iacovelli.fakeamazon.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController {
 
 	@Autowired
-	private UserService service;
+	private CartService cartService;
+
+	@Autowired
+	private UserService userService;
 
 	/**
 	 * This method shows the login page
@@ -37,8 +41,8 @@ public class LoginController {
 	 */
 	@PostMapping("/login")
 	public String tryLogin(@ModelAttribute UserForm form, HttpServletRequest request) {
-		if (service.login(form.getUsername(), form.getPassword())) {
-			Long cartId = service.generateCartIfEmpty(form.getUsername(), form.getPassword());
+		if (userService.login(form.getUsername(), form.getPassword())) {
+			Long cartId = cartService.generateCartIfEmpty(form.getUsername(), form.getPassword());
 			request.getSession().setAttribute("cartId", cartId);
 			return "redirect:/search";
 		}
