@@ -24,7 +24,7 @@ public class LoginController {
 	/**
 	 * This method shows the login page
 	 * @param model
-	 * @return
+	 * @return the login page
 	 */
 	@GetMapping("/login")
 	public String showForm(Model model) {
@@ -37,7 +37,7 @@ public class LoginController {
 	 * redirect to search page otherwise will show error inside the form
 	 * @param form
 	 * @param request
-	 * @return
+	 * @return  the login page
 	 */
 	@PostMapping("/login")
 	public String tryLogin(@ModelAttribute UserForm form, HttpServletRequest request) {
