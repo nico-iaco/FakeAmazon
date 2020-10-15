@@ -4,7 +4,6 @@ import com.iacovelli.fakeamazon.model.Product;
 import com.iacovelli.fakeamazon.model.form.Category;
 import com.iacovelli.fakeamazon.service.CartService;
 import com.iacovelli.fakeamazon.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +17,13 @@ import java.util.Set;
 @RequestMapping("/api")
 public class ApiController {
 
-	@Autowired
-	private ProductService productService;
+	private final ProductService productService;
+	private final CartService cartService;
 
-	@Autowired
-	private CartService cartService;
+	public ApiController(ProductService productService, CartService cartService) {
+		this.productService = productService;
+		this.cartService = cartService;
+	}
 
 	/**
 	 * This method take in input a category and return the list of its subcategory

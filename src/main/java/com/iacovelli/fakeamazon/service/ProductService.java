@@ -4,7 +4,6 @@ import com.iacovelli.fakeamazon.model.Product;
 import com.iacovelli.fakeamazon.model.form.Category;
 import com.iacovelli.fakeamazon.model.form.ProductForm;
 import com.iacovelli.fakeamazon.repo.ProductRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +12,11 @@ import java.util.NoSuchElementException;
 @Service
 public class ProductService {
 
-	@Autowired
-	private ProductRepo repo;
+	private final ProductRepo repo;
+
+	public ProductService(ProductRepo repo) {
+		this.repo = repo;
+	}
 
 	/**
 	 * This method will return a product identified by @param id

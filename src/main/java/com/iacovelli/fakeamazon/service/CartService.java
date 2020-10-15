@@ -6,7 +6,6 @@ import com.iacovelli.fakeamazon.model.Cart;
 import com.iacovelli.fakeamazon.model.Product;
 import com.iacovelli.fakeamazon.model.User;
 import com.iacovelli.fakeamazon.repo.CartRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,11 +14,13 @@ import java.util.Set;
 @Service
 public class CartService {
 
-	@Autowired
-	private CartRepo cartRepo;
+	private final CartRepo cartRepo;
+	private final UserService userService;
 
-	@Autowired
-	private UserService userService;
+	public CartService(CartRepo cartRepo, UserService userService) {
+		this.cartRepo = cartRepo;
+		this.userService = userService;
+	}
 
 	/**
 	 * This method will return a cart identified by @param id
