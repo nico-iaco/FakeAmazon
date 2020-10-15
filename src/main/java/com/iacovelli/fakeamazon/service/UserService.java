@@ -5,14 +5,16 @@ import com.iacovelli.fakeamazon.exception.UserNotFoundException;
 import com.iacovelli.fakeamazon.model.User;
 import com.iacovelli.fakeamazon.repo.UserRepo;
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
-	@Autowired
-	private UserRepo repo;
+	private final UserRepo repo;
+
+	public UserService(UserRepo repo) {
+		this.repo = repo;
+	}
 
 	public boolean register(String email, String password) throws UserAlreadyRegisteredException {
 		User u = new User()
